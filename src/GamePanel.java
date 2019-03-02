@@ -32,22 +32,38 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     public void paintComponent(Graphics g){
     	go.draw(g);
     }
-
+    
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Print this!");
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Or this!");
+		char kp = (char) e.getKeyChar();
+		if(kp=='a') {
+			System.out.println("a");
+			go.le = true;
+		}
+		else if(kp=='d') {
+			System.out.println("d");
+			go.ri = true;
+		}
+		else if(kp=='w') {
+			System.out.println("w");
+			go.up = true;
+		}
+		else if(kp=='s') {
+			System.out.println("s");
+			go.dw = true;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("This works too!");
+		
 	}
 }
