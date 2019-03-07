@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,63 +9,125 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements ActionListener, KeyListener{
-	
-	Timer timer;
-	GameObject go;
+public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
-	GamePanel(){
-		timer = new Timer(1000/60, this);
-		go = new GameObject(10, 10, 480, 780);
+	Timer timer;
+	// GameObject go;
+	LeagueInvaders li;
+	final int MENU_STATE = 0;
+	final int GAME_STATE = 1;
+	final int END_STATE = 2;
+	int currentState = MENU_STATE;
+	Font titleFont;
+	Font regFont;
+
+	GamePanel() {
+		timer = new Timer(1000 / 60, this);
+		titleFont = new Font("Arial", Font.PLAIN, 48);
+		regFont = new Font("Arial", Font.PLAIN, 24);
+		// go = new GameObject(10, 10, 480, 780);
 	}
-	
+
 	void startGame() {
 		timer.start();
 	}
-	
+
+	void updateMenuState() {
+
+	}
+
+	void updateGameState() {
+
+	}
+
+	void updateEndState() {
+
+	}
+
+	void drawMenuState(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, 500, 800);
+		g.setColor(Color.YELLOW);
+		g.setFont(titleFont);
+		g.drawString("LEAGUE INVADERS", 25, 200);
+		g.setFont(regFont);
+		g.drawString("Press ENTER to start", 120, 350);
+		g.drawString("Press SPACE for instructions", 85, 500);
+	}
+
+	void drawGameState(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, 500, 800);
+	}
+
+	void drawEndState(Graphics g) {
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, 500, 800);
+		g.setColor(Color.BLACK);
+		g.setFont(titleFont);
+		g.drawString("Game Over", 125, 200);
+		g.setFont(regFont);
+		g.drawString("You killed 0 enemies", 140, 350);
+		g.drawString("Press ENTER to restart", 120, 500);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		go.update();
+		if (currentState == MENU_STATE) {
+			updateMenuState();
+		} else if (currentState == GAME_STATE) {
+			updateGameState();
+		} else if (currentState == END_STATE) {
+			updateEndState();
+		}
 		repaint();
 	}
-	
-    @Override
-    public void paintComponent(Graphics g){
-    	go.draw(g);
-    }
-    
+
+	@Override
+	public void paintComponent(Graphics g) {
+		if (currentState == MENU_STATE) {
+			drawMenuState(g);
+		} else if (currentState == GAME_STATE) {
+			drawGameState(g);
+		} else if (currentState == END_STATE) {
+			drawEndState(g);
+		}
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char kp = (char) e.getKeyChar();
-		if(kp=='a') {
-			System.out.println("a");
-			go.le = true;
+		int kc = (int) e.getKeyCode();
+		if (kp == 10) {
+			if (currentState == MENU_STATE) {
+				currentState = GAME_STATE;
+			} else if (currentState == GAME_STATE) {
+				currentState = END_STATE;
+			} else if (currentState == END_STATE) {
+				currentState = MENU_STATE;
+			}
 		}
-		else if(kp=='d') {
-			System.out.println("d");
-			go.ri = true;
-		}
-		else if(kp=='w') {
-			System.out.println("w");
-			go.up = true;
-		}
-		else if(kp=='s') {
-			System.out.println("s");
-			go.dw = true;
-		}
+		/*
+		 * if (kp == 'a') { go.le = true; } if (kp == 'd') { go.ri = true; } if (kp ==
+		 * 'w') { go.up = true; } if (kp == 's') { go.dw = true; }
+		 */
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		char kr = (char) e.getKeyChar();
+		/*
+		 * if (kr == 'a') { go.le = false; } if (kr == 'd') { go.ri = false; } if (kr ==
+		 * 'w') { go.up = false; } if (kr == 's') { go.dw = false; }
+		 */
 	}
 }
