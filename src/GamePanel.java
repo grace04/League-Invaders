@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	// GameObject go;
 	LeagueInvaders li;
+	Rocketship rs = new Rocketship(250, 700, 50, 50);
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-
+		rs.update();
 	}
 
 	void updateEndState() {
@@ -58,6 +59,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 500, 800);
+		rs.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
@@ -115,19 +117,39 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = MENU_STATE;
 			}
 		}
-		/*
-		 * if (kp == 'a') { go.le = true; } if (kp == 'd') { go.ri = true; } if (kp ==
-		 * 'w') { go.up = true; } if (kp == 's') { go.dw = true; }
-		 */
+
+		if (kp == 'a') {
+			rs.le = true;
+		}
+		if (kp == 'd') {
+			rs.ri = true;
+		}
+		if (kp == 'w') {
+			rs.up = true;
+		}
+		if (kp == 's') {
+			rs.dw = true;
+		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char kr = (char) e.getKeyChar();
-		/*
-		 * if (kr == 'a') { go.le = false; } if (kr == 'd') { go.ri = false; } if (kr ==
-		 * 'w') { go.up = false; } if (kr == 's') { go.dw = false; }
-		 */
+
+		if (kr == 'a') {
+			rs.le = false;
+		}
+		if (kr == 'd') {
+			rs.ri = false;
+		}
+		if (kr == 'w') {
+			rs.up = false;
+		}
+		if (kr == 's') {
+			rs.dw = false;
+		}
+
 	}
 }
