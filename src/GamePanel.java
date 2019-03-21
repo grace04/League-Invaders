@@ -15,6 +15,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	// GameObject go;
 	LeagueInvaders li;
 	Rocketship rs = new Rocketship(250, 700, 50, 50);
+	ObjectManager om = new ObjectManager(rs);
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -38,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-		rs.update();
+		om.update();
 	}
 
 	void updateEndState() {
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 500, 800);
-		rs.draw(g);
+		om.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
