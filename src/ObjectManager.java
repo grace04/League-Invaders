@@ -5,7 +5,7 @@ public class ObjectManager {
 	Rocketship rs;
 
 	ObjectManager(Rocketship rocket) {
-		rs = new Rocketship(250, 700, 50, 50);
+		this.rs = rocket;
 	}
 
 	void update() {
