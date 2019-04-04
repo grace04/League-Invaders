@@ -131,6 +131,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (kp == 's') {
 			rs.dw = true;
 		}
+		if (kc == 32) {
+			om.addProjectile(new Projectile(rs.x + 21, rs.y, 10, 10));
+		}
 
 	}
 
