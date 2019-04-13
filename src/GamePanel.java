@@ -13,7 +13,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	Timer timer;
 	// GameObject go;
-	LeagueInvaders li;
 	Rocketship rs = new Rocketship(250, 700, 50, 50);
 	ObjectManager om = new ObjectManager(rs);
 	final int MENU_STATE = 0;
@@ -40,6 +39,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		om.update();
+		om.manageEnemies();
 	}
 
 	void updateEndState() {
@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.drawString("Game Over", 125, 200);
 		g.setFont(regFont);
-		g.drawString("You killed 0 enemies", 140, 350);
+		g.drawString("You killed " + om.kill + " enemies", 140, 350);
 		g.drawString("Press ENTER to restart", 120, 500);
 	}
 
@@ -131,10 +131,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (kp == 's') {
 			rs.dw = true;
 		}
-		if (kc == 32) {
+		if (kp == 'k') {
 			om.addProjectile(new Projectile(rs.x + 21, rs.y, 10, 10));
 		}
-
 	}
 
 	@Override

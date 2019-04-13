@@ -5,12 +5,12 @@ import java.util.Random;
 public class ObjectManager {
 
 	Rocketship rs;
-	LeagueInvaders li;
 	GameObject go;
 	ArrayList<Projectile> pro = new ArrayList<Projectile>();
 	ArrayList<Alien> ali = new ArrayList<Alien>();
 	long enemyTimer = 0;
-	int enemySpawnTime;
+	int enemySpawnTime = 1000;
+	int kill = 0;
 
 	ObjectManager(Rocketship rocket) {
 		this.rs = rocket;
@@ -18,6 +18,7 @@ public class ObjectManager {
 
 	void update() {
 		rs.update();
+		purgeObjects();
 		for (Projectile pr : pro) {
 			pr.update();
 		}
@@ -46,14 +47,32 @@ public class ObjectManager {
 
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addAlien(new Alien(new Random().nextInt(li.WI), 0, 50, 50));
+			addAlien(new Alien(new Random().nextInt(LeagueInvaders.WI), 0, 50, 50));
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
 
 	void purgeObjects() {
-		if (go.isAlive == false) {
-
+		for(Projectile pr : pro) {
+			for(Alien al : ali) {
+				if(pr.x>=al.x&&pr.x<=al.x+50&&pr.y==al.y+50) {
+					al.isAlive = false;
+					pr.isAlive = false;
+				}
+			}
+		}
+		
+		for(int i=0; i<pro.size(); i++) {
+			if(pro.get(i).isAlive==false) {
+				pro.remove(i);
+			}
+		}
+		
+		for(int i=0; i<ali.size(); i++) {
+			if(ali.get(i).isAlive==false) {
+				ali.remove(i);
+				kill++;
+			}
 		}
 	}
 }

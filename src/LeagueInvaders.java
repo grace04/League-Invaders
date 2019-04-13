@@ -10,8 +10,8 @@ public class LeagueInvaders {
 	}
 
 	JFrame frame;
-	final int WI = 500;
-	final int HE = 800;
+	final static int WI = 500;
+	final static int HE = 800;
 	GamePanel gp;
 
 	LeagueInvaders() {
