@@ -9,7 +9,7 @@ public class ObjectManager {
 	ArrayList<Projectile> pro = new ArrayList<Projectile>();
 	ArrayList<Alien> ali = new ArrayList<Alien>();
 	long enemyTimer = 0;
-	int enemySpawnTime = 1000;
+	int enemySpawnTime = 500;
 	int kill = 0;
 
 	ObjectManager(Rocketship rocket) {
@@ -52,16 +52,21 @@ public class ObjectManager {
 		}
 	}
 
-	void purgeObjects() {
-		for(Projectile pr : pro) {
-			for(Alien al : ali) {
-				if(pr.x>=al.x&&pr.x<=al.x+50&&pr.y==al.y+50) {
+	void checkCollision() {
+		for(Alien al : ali) {
+			if(rs.collisionBox.intersects(al.collisionBox)) {
+				rs.isAlive = false;
+			}
+			for(Projectile pr : pro) {
+				if(pr.collisionBox.intersects(al.collisionBox)) {
 					al.isAlive = false;
 					pr.isAlive = false;
 				}
 			}
 		}
-		
+	}
+	
+	void purgeObjects() {
 		for(int i=0; i<pro.size(); i++) {
 			if(pro.get(i).isAlive==false) {
 				pro.remove(i);

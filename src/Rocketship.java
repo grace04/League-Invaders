@@ -12,22 +12,22 @@ public class Rocketship extends GameObject {
 	}
 
 	void update() {
+		super.update();
 		if (le == true) {
-			x -= 15;
+			x -= 5;
 		}
 		if (ri == true) {
-			x += 15;
+			x += 5;
 		}
 		if (up == true) {
-			y -= 15;
+			y -= 5;
 		}
 		if (dw == true) {
-			y += 15;
+			y += 5;
 		}
 	}
 
 	void draw(Graphics g) {
-		g.setColor(Color.BLUE);
-		g.fillRect(x, y, 50, 50);
+		g.drawImage(GamePanel.rocketImg, x, y, width, height, null);
 	}
 }
